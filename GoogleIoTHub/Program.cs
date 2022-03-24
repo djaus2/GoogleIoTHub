@@ -1,7 +1,13 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using System;
 
-
-Console.WriteLine("Hello, World!");
-await read_d2c_messages.ReadDeviceToCloudMessages.Run(new string[0]);
-
-
+namespace read_d2c_messages
+{
+    class Program
+    {
+        static  void Main(string[] args)
+        {
+           Console.WriteLine("Hello Google and Azure!");
+           read_d2c_messages.ReadDeviceToCloudMessages.Run(new string[0]).GetAwaiter();
+        }
+    }
+}
