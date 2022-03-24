@@ -3,7 +3,7 @@
     "simulated-device": {
       "commandName": "Project",
       "environmentVariables": {
-        "IOTHUB_DEVICE_CONN_STRING": "Add"
+        "IOTHUB_DEVICE_CONN_STRING": ""
       }
     }
   }

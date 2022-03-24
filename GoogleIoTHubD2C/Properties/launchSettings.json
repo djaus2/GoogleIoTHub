@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "GoogleIoTHubD2C": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "EVENT_HUBS_SAS_KEY": "",
+        "EVENT_HUBS_COMPATIBILITY_PATH": "",
+        "EVENT_HUBS_COMPATIBILITY_ENDPOINT": "",
+        "SHARED_ACCESS_KEY_NAME": ""
+      }
+    }
+  }
+}
