@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "GoogleIoTHub": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "EVENT_HUBS_SAS_KEY": "Add",
+        "EVENT_HUBS_COMPATIBILITY_PATH": "Add",
+        "EVENT_HUBS_COMPATIBILITY_ENDPOINT": "Add",
+        "SHARED_ACCESS_KEY_NAME": "iothubowner"
+      }
+    }
+  }
+}

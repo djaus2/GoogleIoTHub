@@ -10,36 +10,49 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Linq;
+using System.ComponentModel;
 
 namespace read_d2c_messages
 {
-    public static class ReadDeviceToCloudMessages
+    class ReadDeviceToCloudMessages
     {
+        public static void WriteT2S(string txt)
+        {
+            if (File.Exists(@"c:\temp\temperature.txt"))
+            {
+                // If file found, delete it    
+                File.Delete(@"c:\temp\temperature.txt");
+                Console.WriteLine("File deleted.");
+            }
+            File.WriteAllText(@"c:\temp\temperature.txt", txt);
+            return;
+        }
         private static bool show_system_properties = true;
         // Event Hub-compatible endpoint
         // az iot hub show --query properties.eventHubEndpoints.events.endpoint --name {your IoT Hub name}
         ////private readonly static string s_eventHubsCompatibleEndpoint = "{your Event Hubs compatible endpoint}";
-        
-        private  static string s_eventHubsCompatibleEndpoint = Environment.GetEnvironmentVariable("EVENT_HUBS_COMPATIBILITY_ENDPOINT");
+
+        private static string s_eventHubsCompatibleEndpoint = Environment.GetEnvironmentVariable("EVENT_HUBS_COMPATIBILITY_ENDPOINT");
 
 
         // Event Hub-compatible name
         // az iot hub show --query properties.eventHubEndpoints.events.path --name {your IoT Hub name}
         //// private readonly static string s_eventHubsCompatiblePath = "{your Event Hubs compatible name}";
 
-        private static string s_eventHubsCompatiblePath = "myhub137";// Environment.GetEnvironmentVariable("EVENT_HUBS_COMPATIBILITY_PATH");
+        private static string s_eventHubsCompatiblePath = Environment.GetEnvironmentVariable("EVENT_HUBS_COMPATIBILITY_PATH");
 
 
         // az iot hub policy show --name service --query primaryKey --hub-name {your IoT Hub name}
         //private readonly static string s_iotHubSasKey = "{your service primary key}";
         //private readonly static string s_iotHubSasKeyName = "service";
 
-        private  static string s_iotHubSasKey = Environment.GetEnvironmentVariable("EVENT_HUBS_SAS_KEY");// "{your service primary key}";
-        private  static string s_iotHubSasKeyName = Environment.GetEnvironmentVariable("SHARED_ACCESS_KEY_NAME");// "service, iothubowner";
-        
-        
-        
+        private static string s_iotHubSasKey = Environment.GetEnvironmentVariable("EVENT_HUBS_SAS_KEY");// "{your service primary key}";
+        private static string s_iotHubSasKeyName = Environment.GetEnvironmentVariable("SHARED_ACCESS_KEY_NAME");// "service, iothubowner";
+
+
+
         private static EventHubClient s_eventHubClient;
 
         // Asynchronously create a PartitionReceiver for a partition and then start 
@@ -51,8 +64,8 @@ namespace read_d2c_messages
             // the time the receiver is created. Typically, you don't want to skip any messages.
             var eventHubReceiver = s_eventHubClient.CreateReceiver("$Default", partition, EventPosition.FromEnqueuedTime(DateTime.Now));
             Console.WriteLine("Create receiver on partition: " + partition);
-            bool runOnce = true;
-            while (runOnce)
+            bool forever = true;
+            while (forever)
             {
                 if (ct.IsCancellationRequested) break;
                 Console.WriteLine("Listening for messages on: " + partition);
@@ -62,54 +75,84 @@ namespace read_d2c_messages
                 // If there is data in the batch, process it.
                 if (events == null) continue;
 
-                foreach(EventData eventData in events)
-                { 
-                  string data = Encoding.UTF8.GetString(eventData.Body.Array);
-                  Console.WriteLine("Message received on partition {0}:", partition);
-                  Console.WriteLine("  {0}:", data);
-                  Console.WriteLine("Application properties (set by device):");
-                  foreach (var prop in eventData.Properties)
-                  {
-                    Console.WriteLine("  {0}: {1}", prop.Key, prop.Value);
-                  }
-                   // return;
-                  if(show_system_properties)
-                  {
-                    Console.WriteLine("System properties (set by IoT Hub):");
-                    foreach (var prop in eventData.SystemProperties)
+                foreach (EventData eventData in events)
+                {
+
+                    string data = Encoding.UTF8.GetString(eventData.Body.Array);
+                    int count1 = data.Count(f => f == '{');
+                    int count2 = data.Count(f => f == '}');
+                    int count3 = data.Count(f => f == '"');
+                    // Check for braces
+                    if ((count1! != 1) || (count2 != 1))
+                        continue;
+                    Console.WriteLine("Message received on partition {0}:", partition);
+                    Console.WriteLine("  {0}:", data);
+                    string msg = "";
+                    dynamic d = Newtonsoft.Json.Linq.JObject.Parse(data);
+                    int pCount = 0;
+                    foreach (var prop in d)
                     {
-                        Console.WriteLine("  {0}: {1}", prop.Key, prop.Value);
+                        pCount++;
                     }
-                  }
+                    // If number of " = 2xNumber of properties then is number as each property name requires 2.
+                    // If number of " = 4xNumber of properties then is string as each property name and value require 2 each.
+                    // Could be more selective.
+                    bool valsAreDouble = true;
+                    bool valsAreString = false;
+                    if (count3 != 2 * pCount)
+                    {
+                        valsAreDouble = false;
+                        if (count3 != 4 * pCount)
+                        {
+                            valsAreString = true;
+                        }
+                    }
+                    if (!(valsAreDouble | valsAreString))
+                        continue;
+                    foreach (var prop in d)
+                    {
+                        Console.Write("property Name: " + prop.Name.ToString() + "\t");
+
+                        Console.WriteLine("property Value: " + prop.Value);
+                        // Could allow for more types, especially mixed.
+                        if (valsAreDouble)
+                        {
+                            double val = (double)prop.Value;
+                            msg += $" {prop.Name.ToString()} {val.ToString("0.##")}";
+                        }
+                        else if (valsAreString)
+                            msg += $" {prop.Name.ToString()} {prop.Value}";
+                    }
+                    Console.WriteLine(msg);
+                    WriteT2S(msg);
+                    forever = false;
+
+                    if (show_system_properties)
+                    {
+                        Console.WriteLine("System properties (set by IoT Hub):");
+                        foreach (var prop in eventData.SystemProperties)
+                        {
+                            Console.WriteLine("  {0}: {1}", prop.Key, prop.Value);
+                        }
+                    }
                 }
             }
         }
 
-        public static async Task Run(string[] args)
+        private static async Task Main(string[] args)
         {
             Console.WriteLine("IoT Hub Quickstarts - Read device to cloud messages. Ctrl-C to exit.\n");
-            Console.WriteLine ("Using Env Var EVENT_HUBS_COMPATIBILITY_ENDPOINT = " + s_eventHubsCompatibleEndpoint );
-            Console.WriteLine ("Using Env Var EVENT_HUBS_COMPATIBILITY_PATH = " + s_eventHubsCompatiblePath );
-            Console.WriteLine ("Using Env Var EVENT_HUBS_SAS_KEY = " + s_iotHubSasKey );
-            Console.WriteLine ("Using Env Var SHARED_ACCESS_KEY_NAME = " + s_iotHubSasKeyName );
-
-            Console.WriteLine("\nDo you want to Hide System Properties sent by IoT Hub? [Y]es Default No");
-            var ch = Console.ReadKey();
-            if ((ch.KeyChar=='Y')|| (ch.KeyChar=='y'))
-            {
-                show_system_properties = false;
-            }
+            Console.WriteLine("Using Env Var EVENT_HUBS_COMPATIBILITY_ENDPOINT = " + s_eventHubsCompatibleEndpoint);
+            Console.WriteLine("Using Env Var EVENT_HUBS_COMPATIBILITY_PATH = " + s_eventHubsCompatiblePath);
+            Console.WriteLine("Using Env Var EVENT_HUBS_SAS_KEY = " + s_iotHubSasKey);
+            Console.WriteLine("Using Env Var SHARED_ACCESS_KEY_NAME = " + s_iotHubSasKeyName);
 
 
-            Console.WriteLine("Press Enter to continue when the Simulated-Device is sending messages.");
-            Console.ReadLine();
+            show_system_properties = false;
 
-            // Create an EventHubClient instance to connect to the
-            // IoT Hub Event Hubs-compatible endpoint.
+
             var connectionString = new EventHubsConnectionStringBuilder(new Uri(s_eventHubsCompatibleEndpoint), s_eventHubsCompatiblePath, s_iotHubSasKeyName, s_iotHubSasKey);
-            
-            
-            
+
             s_eventHubClient = EventHubClient.CreateFromConnectionString(connectionString.ToString());
 
             // Create a PartitionReciever for each partition on the hub.
@@ -128,11 +171,12 @@ namespace read_d2c_messages
             var tasks = new List<Task>();
             foreach (string partition in d2cPartitions)
             {
+
                 tasks.Add(ReceiveMessagesFromDeviceAsync(partition, cts.Token));
             }
 
-            // Wait for all the PartitionReceivers to finsih.
-            Task.WaitAll(tasks.ToArray());
+            // Wait for all the PartitionReceivers to finish.
+            Task.WaitAny(tasks.ToArray());
         }
     }
 }
