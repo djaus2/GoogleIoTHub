@@ -29,6 +29,6 @@ This is a work in progress:
   - Option 31 with DNETCoreGPIO continuously sends BME280 telemetry to Azure IoT Hub.
     - Uses this SendTelemetry2Hub package.
   - Option 30 2Do for DHT22 1-Wire
-  - The functionality for this is also has a Nuget package: [DNETCoreGPIO](https://www.nuget.org/packages/DNETCoreGPIO/)
+  - The functionality for this is also a Nuget package: [DNETCoreGPIO](https://www.nuget.org/packages/DNETCoreGPIO/)
 - [Integrations with Triggercmd](https://github.com/djaus2/TRIGGERcmdRPi)
   - Coming
