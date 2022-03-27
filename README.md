@@ -3,7 +3,7 @@ An Azure IoT Hub D2C Console app that can be activated by TRIGGERcmd to get tele
 
 This is a work in progress:
 
-- D2C Console app **GoogleIoTHubD2C** that writes last telemetry send to IOT Hub to temp file.
+- D2C Console app **GoogleIoTHubD2C** that writes last telemetry send to Azure IoT Hub to temp file.
 - Device Simulator Console App **simulated-device**
 - Extracted single generic telemetry send to class library **SendTelemetry2Hub**
   - Added **simulated-device-local** console app that uses it locally.:  
