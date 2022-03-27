@@ -3,7 +3,7 @@
     "simulated-device": {
       "commandName": "Project",
       "environmentVariables": {
-        "IOTHUB_DEVICE_CONN_STRING": ""
+        "IOTHUB_DEVICE_CONN_STRING": "HostName=Hub137.azure-devices.net;DeviceId=Device137;SharedAccessKey=gP0LE2R/YICPcTGZNGIo+Yey4Z4kPNBUwagrl/NAK8I="
       }
     }
   }
