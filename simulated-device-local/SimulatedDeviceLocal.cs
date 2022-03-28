@@ -30,7 +30,7 @@ namespace simulated_device
 
 
         // Async method to send simulated telemetry
-        private static async void SendDeviceToCloudMessagesAsync()
+        private static async Task SendDeviceToCloudMessagesAsync()
         {
             // Initial telemetry values
             double minTemperature = 20;
@@ -55,7 +55,7 @@ namespace simulated_device
                 await Task.Delay(period*1000);
             }
         }
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             period = 10; //sec
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
@@ -73,8 +73,8 @@ namespace simulated_device
 
             Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);
 
-            SendDeviceToCloudMessagesAsync();
-            Console.ReadLine();
+            await SendDeviceToCloudMessagesAsync();
+            Console.WriteLine("Done");
         }
     }
 }

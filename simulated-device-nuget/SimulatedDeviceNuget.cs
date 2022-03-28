@@ -5,13 +5,12 @@
 // For samples see: https://github.com/Azure/azure-iot-sdk-csharp/tree/master/iothub/device/samples
 
 using System;
-using Microsoft.Azure.Devices.Client;
 using System.Threading.Tasks;
 using SendTelemetry;
 
 namespace simulated_device
 {
-    class SimulatedDeviceLocal
+    class SimulatedDeviceNuget
     {
 
         // The device connection string to authenticate the device with your IoT hub.
@@ -24,37 +23,39 @@ namespace simulated_device
         // - set the IOTHUB_DEVICE_CONN_STRING environment variable 
         // - create a launchSettings.json (see launchSettings.json.template) containing the variable
         private static string s_connectionString = Environment.GetEnvironmentVariable("IOTHUB_DEVICE_CONN_STRING");
-
         private static int period;
 
 
 
         // Async method to send simulated telemetry
-        private static async Task SendDeviceToCloudMessagesAsync(int maxReties, int dht22Gpio)
+        private static async Task SendDeviceToCloudMessagesAsync()
         {
+            // Initial telemetry values
+            double minTemperature = 20;
+            double minHumidity = 60;
+            Random rand = new Random();
 
             while (true)
             {
+                double currentTemperature = minTemperature + rand.NextDouble() * 15;
+                double currentHumidity = minHumidity + rand.NextDouble() * 20;
 
                 // Create JSON message
-                var telemetryDataPoint = dht1wiredevicelocal.dht221wire.GetTempDHTxx1Wire(maxReties, dht22Gpio);
-
-                if (telemetryDataPoint != null)
+                var telemetryDataPoint = new
                 {
-                    // Send the telemetry message
-                    await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, s_connectionString);
-                }
+                    temperature = currentTemperature,
+                    humidity = currentHumidity
+                };
+
+                // Send the telemetry message
+                await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, s_connectionString);
 
                 await Task.Delay(period*1000);
             }
         }
         private static async Task Main(string[] args)
         {
-            period = 10; //sec
-            int maxReties = 10;
-            // Set this to the RPi GPIO connection for DHT22 1-Wire
-            // eg https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/Circuits/dht22.png  .. Its 26 there
-            int dht22Gpio = 26;
+            period = 10;
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
 
             if (args.Length > 0)
@@ -66,15 +67,12 @@ namespace simulated_device
                 if (args.Length > 1)
                     if (args[1].Length > 20)
                         s_connectionString = args[1];
-                if (args.Length > 2)
-                    if (int.TryParse(args[2], out int igpio))
-                        dht22Gpio = igpio;
             }
 
             Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);
 
-            await SendDeviceToCloudMessagesAsync(maxReties,dht22Gpio);
-            Console.WriteLine("Done"); ;
+            await SendDeviceToCloudMessagesAsync();
+            Console.WriteLine("Done");
         }
     }
 }
