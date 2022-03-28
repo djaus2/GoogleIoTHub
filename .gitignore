@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /SendTelemetry/nuget.exe
 /SendTelemetry/SendTelemetry2Hub.nuspec
+/simulated-device-Nuget/Properties/launchSettings.json
+/simulated-device-Nuget/Properties/launchSettings.json
