@@ -14,11 +14,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleIoTHubD2C", "GoogleIo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendTelemetry2Hub", "SendTelemetry\SendTelemetry2Hub.csproj", "{B28EB165-1CF0-4770-B5E6-01AFB4435446}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-local", "simulated-device Local\simulated-device-local.csproj", "{6652C304-FA49-4BEA-A196-19961F981D9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-local", "simulated-device-local\simulated-device-local.csproj", "{6652C304-FA49-4BEA-A196-19961F981D9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-nuget", "simulated-device-Nuget\simulated-device-nuget.csproj", "{E8077764-81E2-4280-BBB1-34FAA58D0A9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-nuget", "simulated-device-nuget\simulated-device-nuget.csproj", "{E8077764-81E2-4280-BBB1-34FAA58D0A9C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bme280-device-local", "bme280-device-local\bme280-device-local.csproj", "{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dht-1-wire-device local", "dht-1-wire-device local\dht-1-wire-device local.csproj", "{A05844F7-85BE-4878-9B97-F96E8C7636F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A05844F7-85BE-4878-9B97-F96E8C7636F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A05844F7-85BE-4878-9B97-F96E8C7636F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A05844F7-85BE-4878-9B97-F96E8C7636F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A05844F7-85BE-4878-9B97-F96E8C7636F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
