@@ -5,7 +5,8 @@ forming a speakable string from it and then forwarding it to a Google Nest for e
 This is a work in progress:
 
 - D2C Console app **GoogleIoTHubD2C** that writes last telemetry send to Azure IoT Hub to temp file.
-  - Optional arg: true/false(default true) if true runs app for just teh netx received telemetry only, false viz.
+  - Optional arg: true/false(default true) if true runs app for just the next received telemetry only, false viz.
+  - __2Do: Each time app runs it reads all telemetry sent in last 24hrs. Better to have a service locally that serves up last sent msg only. ... later__
 - Device Simulator Console App **simulated-device**
   - Optional args: period(default 10sec)  deviceconnectionstring
     - deviceconnectionstring: defaults to environment value
