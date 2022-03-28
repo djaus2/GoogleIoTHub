@@ -10,7 +10,7 @@ using SendTelemetry;
 
 namespace simulated_device
 {
-    class SimulatedDeviceNuget
+    class bme280DeviceNuget
     {
 
         // The device connection string to authenticate the device with your IoT hub.
@@ -23,32 +23,23 @@ namespace simulated_device
         // - set the IOTHUB_DEVICE_CONN_STRING environment variable 
         // - create a launchSettings.json (see launchSettings.json.template) containing the variable
         private static string s_connectionString = Environment.GetEnvironmentVariable("IOTHUB_DEVICE_CONN_STRING");
-        private static int period;
 
-
+        private static int period = 10;
 
         // Async method to send simulated telemetry
         private static async void SendDeviceToCloudMessagesAsync()
         {
-            // Initial telemetry values
-            double minTemperature = 20;
-            double minHumidity = 60;
-            Random rand = new Random();
 
             while (true)
             {
-                double currentTemperature = minTemperature + rand.NextDouble() * 15;
-                double currentHumidity = minHumidity + rand.NextDouble() * 20;
 
                 // Create JSON message
-                var telemetryDataPoint = new
+                var telemetryDataPoint = DotNetCoreCoreGPIO.BME280Sampler.Get();
+                if (telemetryDataPoint != null)
                 {
-                    temperature = currentTemperature,
-                    humidity = currentHumidity
-                };
-
-                // Send the telemetry message
-                await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, s_connectionString);
+                    // Send the telemetry message
+                    await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, s_connectionString);
+                }
 
                 await Task.Delay(period*1000);
             }
@@ -57,6 +48,7 @@ namespace simulated_device
         {
             period = 10;
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
+
 
             if (args.Length > 0)
             {
@@ -72,7 +64,7 @@ namespace simulated_device
             Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);
 
             SendDeviceToCloudMessagesAsync();
-            Console.ReadLine();
+            Console.WriteLine("Done"); ;
         }
     }
 }

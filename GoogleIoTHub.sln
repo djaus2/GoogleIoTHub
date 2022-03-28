@@ -10,13 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device", "simulated-device\simulated-device.csproj", "{68BCF1DD-D755-4F19-B63E-A9620D88A039}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleIoTHubD2C", "GoogleIoTHubD2C\GoogleIoTHubD2C.csproj", "{999B1EC9-01C7-4BFB-94A6-EE281F4FC6AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleIoTHubD2C", "GoogleIoTHubD2C\GoogleIoTHubD2C.csproj", "{999B1EC9-01C7-4BFB-94A6-EE281F4FC6AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendTelemetry2Hub", "SendTelemetry\SendTelemetry2Hub.csproj", "{B28EB165-1CF0-4770-B5E6-01AFB4435446}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendTelemetry2Hub", "SendTelemetry\SendTelemetry2Hub.csproj", "{B28EB165-1CF0-4770-B5E6-01AFB4435446}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-local", "simulated-device Local\simulated-device-local.csproj", "{6652C304-FA49-4BEA-A196-19961F981D9F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-nuget", "simulated-device-Nuget\simulated-device-nuget.csproj", "{E8077764-81E2-4280-BBB1-34FAA58D0A9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bme280-device-nuget", "bme280-device-Nuget\bme280-device-nuget.csproj", "{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{E8077764-81E2-4280-BBB1-34FAA58D0A9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8077764-81E2-4280-BBB1-34FAA58D0A9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8077764-81E2-4280-BBB1-34FAA58D0A9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

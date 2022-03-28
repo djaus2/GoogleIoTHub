@@ -25,10 +25,7 @@ This is a work in progress:
 ```
 - Published lib to Nuget as [SendTelemetery2Hub](https://www.nuget.org/packages/SendTelemetry2Hub/)
   - Added **simulated-device-nuget** console app that uses Nuget package.
-- [djaus2/DNETCoreGPIO option for device using sensors](https://github.com/djaus2/DNETCoreGPIO) (on GitHub)
-  - Option 31 with DNETCoreGPIO continuously sends BME280 telemetry to Azure IoT Hub.
-    - Uses this SendTelemetry2Hub package.
-  - Option 30 2Do for DHT22 1-Wire
-  - The functionality for this is also a Nuget package: [DNETCoreGPIO](https://www.nuget.org/packages/DNETCoreGPIO/)
+- **bme280-device-nuget** console app that reads telemetry from a BME280 and sends that.
+- **dht22-1-wire-device-nuget** [Cmoing]
 - [Integrations with Triggercmd](https://github.com/djaus2/TRIGGERcmdRPi)
   - Coming

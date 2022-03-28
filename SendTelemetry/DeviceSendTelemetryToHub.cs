@@ -33,13 +33,19 @@ namespace SendTelemetry
         // Async method to send simulated telemetry
         public static async Task SendDeviceToCloudMessageAsync(dynamic telemetryDataPoint, string s_connectionString)
         {
-            s_deviceClient = DeviceClient.CreateFromConnectionString(s_connectionString, TransportType.Mqtt);
-            var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
-            Message message = new Message(Encoding.ASCII.GetBytes(messageString));
+            try
+            {
+                s_deviceClient = DeviceClient.CreateFromConnectionString(s_connectionString, TransportType.Mqtt);
+                var messageString = JsonConvert.SerializeObject(telemetryDataPoint);
+                Message message = new Message(Encoding.ASCII.GetBytes(messageString));
 
-            // Send the telemetry message
-            await s_deviceClient.SendEventAsync(message);
-            Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+                // Send the telemetry message
+                await s_deviceClient.SendEventAsync(message);
+                Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
+            } catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
         }
 

@@ -15,6 +15,7 @@ namespace simulated_device
     class SimulatedDevice
     {
         private static DeviceClient s_deviceClient;
+        private static int period;
 
         // The device connection string to authenticate the device with your IoT hub.
         // Using the Azure CLI:
@@ -59,15 +60,26 @@ namespace simulated_device
                 await s_deviceClient.SendEventAsync(message);
                 Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, messageString);
 
-                await Task.Delay(10000);
+                await Task.Delay(period*1000);
             }
         }
         private static void Main(string[] args)
         {
+            period = 10;
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
-            Console.WriteLine ("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString );
+
             if (args.Length > 0)
-                s_connectionString = args[0];
+            {
+                if (int.TryParse(args[0], out int iperiod))
+                {
+                    period = iperiod;
+                }
+                if (args.Length > 1)
+                    if (args[1].Length > 20)
+                        s_connectionString = args[1];
+            }
+
+            Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);
             // Connect to the IoT hub using the MQTT protocol
             s_deviceClient = DeviceClient.CreateFromConnectionString(s_connectionString, TransportType.Mqtt);
             SendDeviceToCloudMessagesAsync();

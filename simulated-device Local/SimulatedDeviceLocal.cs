@@ -25,6 +25,8 @@ namespace simulated_device
         // - create a launchSettings.json (see launchSettings.json.template) containing the variable
         private static string s_connectionString = Environment.GetEnvironmentVariable("IOTHUB_DEVICE_CONN_STRING");
 
+        private static int period;
+
 
 
         // Async method to send simulated telemetry
@@ -50,15 +52,26 @@ namespace simulated_device
                 // Send the telemetry message
                 await DeviceSendTelemetryToHub.SendDeviceToCloudMessageAsync(telemetryDataPoint, s_connectionString);
 
-                await Task.Delay(10000);
+                await Task.Delay(period*1000);
             }
         }
         private static void Main(string[] args)
         {
+            period = 10; //sec
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
-            Console.WriteLine ("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString );
+
             if (args.Length > 0)
-                s_connectionString = args[0];
+            {
+                if (int.TryParse(args[0], out int iperiod))
+                {
+                    period = iperiod;
+                }
+                if (args.Length > 1)
+                    if (args[1].Length > 20)
+                        s_connectionString = args[1];
+            }
+
+            Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);
 
             SendDeviceToCloudMessagesAsync();
             Console.ReadLine();
