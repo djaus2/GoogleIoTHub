@@ -23,6 +23,7 @@ namespace GoogleIoTHubD2C
     {
         const int hubRefreshPreiod = 10; //Sec
         private static bool DisplayData = false;
+        private static bool runOnce = true;
         public static void WriteT2S(string txt)
         {
             if (File.Exists(@"c:\temp\temperature.txt"))
@@ -62,6 +63,13 @@ namespace GoogleIoTHubD2C
 
         public static async Task Main(string[] args)
         {
+            if (args.Length > 0)
+            {
+                if (args[0].ToLower() == "false")
+                    runOnce = false;
+                else
+                    runOnce = true;
+            }
             DisplayData = false;
             // Parse application parameters
 
@@ -92,10 +100,10 @@ namespace GoogleIoTHubD2C
             Console.WriteLine("Cloud message reader finished.");
         }
 
-                internal static string GetEventHubConnectionString()
-                {
-                    return EventHubConnectionString ?? $"Endpoint={EventHubCompatibleEndpoint};SharedAccessKeyName={IotHubSharedAccessKeyName};SharedAccessKey={SharedAccessKey}";
-                }
+        internal static string GetEventHubConnectionString()
+        {
+            return EventHubConnectionString ?? $"Endpoint={EventHubCompatibleEndpoint};SharedAccessKeyName={IotHubSharedAccessKeyName};SharedAccessKey={SharedAccessKey}";
+        }
 
         // Asynchronously create a PartitionReceiver for a partition and then start
         // reading any messages sent from the simulated client.
@@ -211,7 +219,8 @@ namespace GoogleIoTHubD2C
 
                     Console.WriteLine(msg);
                     WriteT2S(msg);
-                    break;
+                    if (runOnce)
+                        break;
                 }
             }
             catch (TaskCanceledException)

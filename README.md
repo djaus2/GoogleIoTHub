@@ -25,7 +25,7 @@ This is a work in progress:
 ```
 - Published lib to Nuget as [SendTelemetery2Hub](https://www.nuget.org/packages/SendTelemetry2Hub/)
   - Added **simulated-device-nuget** console app that uses Nuget package.
-- **bme280-device-nuget** console app that reads telemetry from a BME280 and sends that.
+- **bme280-device-local** console app that reads telemetry from a BME280 and sends that telemetry.
 - **dht22-1-wire-device-nuget** [Coming]
 - [Integrations with Triggercmd](https://github.com/djaus2/TRIGGERcmdRPi)
   - Coming

@@ -7,7 +7,7 @@
   
     <ItemGroup>
 
-    <PackageReference Include="SendTelemetry2Hub" Version="*" />
+      <ProjectReference Include="..\SendTelemetry\SendTelemetry2Hub.csproj" />
   
     <PackageReference Include="Iot.Device.Bindings" Version="2.1.0" />
     <PackageReference Include="System.Device.Gpio" Version="2.1.0" />

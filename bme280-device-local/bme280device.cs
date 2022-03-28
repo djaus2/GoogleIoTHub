@@ -10,7 +10,7 @@ using SendTelemetry;
 
 namespace simulated_device
 {
-    class bme280DeviceNuget
+    class bme280device
     {
 
         // The device connection string to authenticate the device with your IoT hub.

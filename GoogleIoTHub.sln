@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-local", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "simulated-device-nuget", "simulated-device-Nuget\simulated-device-nuget.csproj", "{E8077764-81E2-4280-BBB1-34FAA58D0A9C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bme280-device-nuget", "bme280-device-Nuget\bme280-device-nuget.csproj", "{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bme280-device-local", "bme280-device-local\bme280-device-local.csproj", "{A455784E-1B6D-4DA8-A03D-B0CB9839FC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
