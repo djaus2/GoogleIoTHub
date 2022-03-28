@@ -37,6 +37,7 @@ This is a work in progress:
     - deviceconnectionstring: defaults to environment value
     - Can Use dots to use defaults, as place holders
   - [Typical Circuit](https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/Circuits/rpi-bmp280_i2c.png)
+    - [More info from line 42 here](https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/BMX280Sampler.cs)
 - **dht22-1-wire-device-local** Console app that reads telemetry from a DHT22 1-Wire and sends that telemetry
   - Optional args: period(default 10sec)  deviceconnectionstring dht22Gpio(default 26)
     - deviceconnectionstring: defaults to environment value
