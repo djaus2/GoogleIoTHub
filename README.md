@@ -42,6 +42,8 @@ This is a work in progress:
     - deviceconnectionstring: defaults to environment value
     - Can Use dots to use defaults, as place holders 
   - [Typical circuit](https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/Circuits/dht22.png) 
+    - Nb: In that diagram to pinouts are Pwr-Signal-nc-Gnd  Pwr = 5V
+    - On my (red) device they are Gnd-Pwr-Signal  I use Pwr = 3.3V
 
 - [Integrations with Triggercmd](https://github.com/djaus2/TRIGGERcmdRPi)
   - Coming
