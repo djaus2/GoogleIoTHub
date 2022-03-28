@@ -54,7 +54,7 @@ namespace simulated_device
             int maxReties = 10;
             // Set this to the RPi GPIO connection for DHT22 1-Wire
             // eg https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/Circuits/dht22.png  .. Its 26 there
-            int dht22Gpio = 25;
+            int dht22Gpio = 26;
             Console.WriteLine("IoT Hub Quickstarts #1 - Simulated device. Ctrl-C to exit.\n");
 
             if (args.Length > 0)
@@ -66,6 +66,9 @@ namespace simulated_device
                 if (args.Length > 1)
                     if (args[1].Length > 20)
                         s_connectionString = args[1];
+                if (args.Length > 2)
+                    if (int.TryParse(args[2], out int igpio))
+                        dht22Gpio = igpio;
             }
 
             Console.WriteLine("Using Env Var IOTHUB_DEVICE_CONN_STRING = " + s_connectionString);

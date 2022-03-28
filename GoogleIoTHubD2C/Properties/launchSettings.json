@@ -2,11 +2,20 @@
   "profiles": {
     "GoogleIoTHubD2C": {
       "commandName": "Project",
+      "commandLineArgs": "false",
       "environmentVariables": {
-        "EVENT_HUBS_SAS_KEY": "",
-        "EVENT_HUBS_COMPATIBILITY_PATH": "",
-        "EVENT_HUBS_COMPATIBILITY_ENDPOINT": "",
-        "SHARED_ACCESS_KEY_NAME": ""
+        "SHARED_ACCESS_KEY_NAME": "iothubowner",
+        "DEVICE_NAME": "Device137",
+        "IOTHUB_DEVICE_CONN_STRING": "HostName=Hub137.azure-devices.net;DeviceId=Device137;SharedAccessKey=gP0LE2R/YICPcTGZNGIo+Yey4Z4kPNBUwagrl/NAK8I=",
+        "IOTHUB_CONN_STRING_CSHARP": "HostName=Hub137.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=sbsIPvFmUdZYjvSV1GRaF8Z20qx0xTV+wZYDBeSS64w=",
+        "SERVICE_CONNECTION_STRING": "HostName=Hub137.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=wrujeLzOwjHR55vel5VHFI0i5c3ZD0cUT8OGfAggDF0=",
+        "DEVICE_ID": "Device137",
+        "EVENT_HUBS_COMPATIBILITY_ENDPOINT": "sb://iothub-ns-hub137-18236635-b1bbb7b130.servicebus.windows.net/",
+        "EVENT_HUBS_COMPATIBILITY_PATH": "hub137",
+        "EVENT_HUBS_SAS_KEY": "sbsIPvFmUdZYjvSV1GRaF8Z20qx0xTV+wZYDBeSS64w=",
+        "EVENT_HUBS_CONNECTION_STRING": "Endpoint=sb://iothub-ns-qwerty-2862278-31b54ca8c2.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=kVFKa00TrE6ExALK1CRSviyppoioTXhp4A2O3j5jd4Q=;EntityPath=qwerty",
+        "REMOTE_HOST_NAME": "localhost",
+        "REMOTE_PORT": "2222"
       }
     }
   }
