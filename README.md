@@ -46,6 +46,8 @@ This is a work in progress:
   - [Typical circuit](https://github.com/djaus2/DNETCoreGPIO/blob/master/DNETCoreGPIO/Circuits/dht22.png) 
     - Nb: In that diagram to pinouts are Pwr-Signal-nc-Gnd  Pwr = 5V
     - On my (red) device they are Gnd-Pwr-Signal  I use Pwr = 3.3V
-
+- **bme280**  is now option 31 for [djaus2/DNETCoreGPIO](https://github.com/djaus2/DNETCoreGPIO)
+  - Parameters there are: 31 . \<Period\> \<DeviceConnectionString\>
+  - The second parameter is a dot as a place holder as bme280 doesn't use GPIO. It uses I2C.
 - [Integrations with Triggercmd](https://github.com/djaus2/TRIGGERcmdRPi)
   - Coming
